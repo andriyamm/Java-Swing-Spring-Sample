@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+   <bean id="httpBookService"
+         class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+      
+        <property name="service" ref="bookManager"/>
+        
+		<property name="serviceInterface">
+       		<value>com.ss.test.service.IBookManager</value>
+      	</property>
+   </bean>
+
+   <bean id="urlMapping"
+          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+      <property name="mappings">
+         <props>
+            <prop key="/bookService">httpBookService</prop>
+         </props>
+      </property>
+   </bean>
+
+</beans>

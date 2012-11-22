@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	
+	<bean id="bookView" class="com.ss.test.gui.BookView"  >
+		<constructor-arg>
+			<ref bean="columnComboModel"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="bookTableModel"/>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="columnComboModel" class="com.ss.test.gui.models.ColumnComboModel" />
+	
+	<bean id="bookTableModel" class="com.ss.test.gui.models.BookTableModel" >
+		<constructor-arg>
+			<ref bean="bookService" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="bookService"
+            class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+            <property name="serviceUrl"
+                value="http://localhost:8090/miniature-octo-bear/bookService" />
+            <property name="serviceInterface"
+                value="com.ss.test.service.IBookManager" />
+     </bean> 
+	
+</beans>
