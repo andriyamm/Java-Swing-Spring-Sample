@@ -1,13 +1,17 @@
 *.class
 
 # Package Files #
-#*.jar
+*.jar
 *.war
 *.ear
 
-/build/
-/lib/
-/.setting/
+# Directories #
+/build/**/*
+/lib/**/*
+/.setting/**/*
+
+# Eclipse Project Files #
 .project
 .classpath
+
 jdbc.properties
