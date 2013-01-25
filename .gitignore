@@ -6,9 +6,9 @@
 *.ear
 
 # Directories #
-/build/**/*
-/lib/**/*
-/.setting/**/*
+build/**
+lib/**
+.settings/**
 
 # Eclipse Project Files #
 .project
