@@ -1,0 +1,14 @@
+<ivy-module version="2.0">
+    <info organisation="org.apache" module="secret-octo-helper"/>
+    <dependencies>
+        <dependency org="commons-dbcp" name="commons-dbcp" rev="2.0"/>
+        <dependency org="commons-pool" name="commons-pool" rev="1.0"/>
+        <dependency org="commons-lang" name="commons-lang3" rev="3.0"/>
+        <dependency org="commons-logging" name="commons-logging" rev="1.0"/>
+        
+        <dependency org="spring" name="spring" rev="2.0"/>
+        <dependency org="jtds" name="jtds" rev="1.0"/>
+        <dependency org="forms" name="forms" rev="3.0"/>
+     
+    </dependencies>
+</ivy-module>
