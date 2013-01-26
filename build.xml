@@ -1,29 +1,90 @@
 <?xml version="1.0"?>
-<project name="Ant-Test" default="main" basedir=".">
+<project name="Ant-Test" default="main" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 	
 	<!-- Sets variables which can later be used. -->
 	<!-- The value of a property is accessed via ${} -->
 	<property name="src.dir" location="src" />
 	<property name="build.dir" location="build" />
+	<property name="lib.dir" value="lib" />
+	<property name="classes" value="${build}/classes" />
+	<property name="warfilename" value="${ant.project.name}.war"/>
+	<property name="warfile" value="${build}/${warfilename}"/>
+	<property name="WebContent" value="WebContent" />
+
+	<property file="build.properties" />
+	
+	<!-- paths used for compilation and run  -->
+    <path id="lib.path.id">
+        <fileset dir="${lib.dir}" />
+	</path>
+    <path id="run.path.id">
+        <path refid="lib.path.id" />
+        <path location="${build.dir}" />
+    </path>
+	
+	<!--   target: resolve              -->
+	<target name="resolve" description="--> retreive dependencies with ivy">
+		<ivy:retrieve />
+	</target>    
+
+	<!--           target: report             -->
+	<target name="report" depends="resolve" description="--> generates a report of dependencies">
+	<ivy:report todir="${build.dir}"/>
+	</target>
+
+	<!--  target: clean-cache            -->
+	<target name="clean-cache" description="--> clean the ivy cache">
+		<ivy:cleancache />
+	</target>
 
 	<!-- Deletes the existing build, docs and dist directory-->
 	<target name="clean">
-	    <delete dir="${build.dir}" />
+		<echo message="Cleaning project workspace" />
+		<delete dir="${build.dir}" />
 	</target>
 
 	<!-- Creates the  build, docs and dist directory-->
-	<target name="makedir">
-		<mkdir dir="${build.dir}" />
+	<!--  Make folder build and classes -->
+	<target name="init" depends="clean">
+		<mkdir dir="${build}" />
+		<mkdir dir="${classes}" />
 	</target>
 	
 	<!-- Compiles the java code (including the usage of library for JUnit -->
-	<target name="compile" depends="clean, makedir">
-		<javac srcdir="${src.dir}" destdir="${build.dir}">
+	<target name="compile" depends="init">
+		<echo message="Compiling project sources" />
+		<javac srcdir="${src}" destdir="${classes}">
+			<classpath>
+				<pathelement path="${classes}"/>
+			</classpath>
 		</javac>
 	</target>
 	
+	<target name="war" depends="compile">
+		<war destfile="${warfile}" needxmlfile="false">
+			<classes dir="${classes}" />
+			<fileset dir="${WebContent}"/>
+			<fileset dir="${jsp}"/>
+			
+			<!-- Include images without jsp -->
+			<fileset dir="${resources}">
+				<exclude name="**/jsp/**" />
+			</fileset>
+		</war>
+	</target>
+	
+	<target name="deploy">
+		<echo message="Deployung war ${deploy}/${warfilename}" />
+		<copy file="${warfile}" todir="${deploy}" />
+	</target>
+	
+	<target name="undeploy">
+		<echo message="Undeployung war ${deploy}/${warfilename}" />
+		<delete file="${deploy}/${warfilename}" />
+	</target>
+	
 	<target name="main" depends="compile">
-	    <description>Main target</description>
+		<description>Main target</description>
 	</target>
 	
 </project>
