@@ -1,0 +1,10 @@
+<!--  public-repo-settings.xml -->
+<ivysettings>
+  <resolvers>
+    <ibiblio name="ibiblio" m2compatible="true" />
+    <filesystem name="public-repo-resolver">
+      <artifact pattern="${dest.dir}/[organisation]/[module]/[type]s/[artifact]-
+[revision].[ext]"/>
+    </filesystem>
+  </resolvers>
+</ivysettings>
