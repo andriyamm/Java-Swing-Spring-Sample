@@ -3,7 +3,7 @@
     <dependencies>
         <dependency org="commons-dbcp" name="commons-dbcp" rev="2.0"/>
         <dependency org="commons-pool" name="commons-pool" rev="1.0"/>
-        <dependency org="commons-lang" name="commons-lang3" rev="3.0"/>
+        <dependency org="commons-lang3" name="commons-lang3" rev="3.0"/>
         <dependency org="commons-logging" name="commons-logging" rev="1.0"/>
         
         <dependency org="spring" name="spring" rev="2.0"/>
