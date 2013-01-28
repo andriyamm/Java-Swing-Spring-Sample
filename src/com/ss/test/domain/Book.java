@@ -10,7 +10,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class Book implements Serializable {
 
 	private static final long serialVersionUID = 6816892260978023089L;
-	
+
 	private Integer id;
 	private String isbn;
 	private String name;
@@ -100,22 +100,17 @@ public class Book implements Serializable {
 		}
 
 		Book rhs = (Book) obj;
-		return new EqualsBuilder().appendSuper(super.equals(obj))
-				.append(id, rhs.id).append(isbn, rhs.isbn)
+		return new EqualsBuilder().append(id, rhs.id).append(isbn, rhs.isbn)
 				.append(name, rhs.name).append(author, rhs.author)
 				.append(pageCount, rhs.pageCount)
 				.append(publishDate, rhs.publishDate).isEquals();
 	}
-	
+
 	@Override
-	public String toString(){
-		 return new ToStringBuilder(this).
-			       append("id", id).
-			       append("isbn", isbn).
-			       append("name", name).
-			       append("author", author).
-			       append("pageCount", pageCount).
-			       append("publishDate", publishDate).
-			       toString();
+	public String toString() {
+		return new ToStringBuilder(this).append("id", id).append("isbn", isbn)
+				.append("name", name).append("author", author)
+				.append("pageCount", pageCount)
+				.append("publishDate", publishDate).toString();
 	}
 }
