@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ivysettings>
+<ivysettings>
+	<properties file="build.properties" /> 
+	<resolvers>
+		<filesystem name="public">
+			<artifact pattern="${path.to.ivy.public.repo}/[organisation]/[module]/[revision]/[type]s/[artifact]-[revision].[ext]" />
+			<ivy pattern="${path.to.ivy.public.repo}/[organisation]/[module]/[revision]/ivys/ivy-[revision].xml"/>
+		</filesystem>
+	</resolvers>
+</ivysettings>

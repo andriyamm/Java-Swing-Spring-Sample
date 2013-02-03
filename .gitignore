@@ -15,5 +15,10 @@ lib/**
 .project
 .classpath
 
+#
+*.kate-swp
+*.swp
+*~
+
 jdbc.properties
 build.properties
