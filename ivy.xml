@@ -1,15 +1,32 @@
 <ivy-module version="2.0">
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd"
+>
     <info organisation="com.ss" module="secret-octo-helper"/>
+	
+	<configurations>
+        <conf name="sources"  description="Source jars"/>
+        <conf name="binaries" description="binary jars"/>
+    </configurations>
+	
     <dependencies>
         
         <dependency org="org.apache.commons" name="commons-dbcp" rev="1.4"/>
         <dependency org="org.apache.commons" name="commons-pool" rev="1.6"/>
         <dependency org="org.apache.commons" name="commons-lang3" rev="3.1"/>
         <dependency org="org.apache.commons" name="commons-logging" rev="1.1.1"/>
+        <dependency org="commons-dbcp" name="commons-dbcp" rev="1.4" conf="binaries->default" />
+        <dependency org="commons-pool" name="commons-pool" rev="1.6" conf="binaries->default" />
+        <dependency org="org.apache.commons" name="commons-lang3" rev="3.1" conf="binaries->default" />
+        <dependency org="commons-logging" name="commons-logging" rev="1.1.1" conf="binaries->default" />
         
         <dependency org="org.springframework"  name="spring" rev="1.2.7" />
         <dependency org="net.sourceforge.jtds" name="jtds" rev="1.2.7"/>
         <dependency org="com.jgoodies" name="forms" rev="1.3.0"/>
+        <dependency org="org.springframework"  name="spring" rev="1.2.7" conf="binaries->default" />
+        <dependency org="net.sourceforge.jtds" name="jtds" rev="1.2.7" conf="binaries->default"/>
+        <dependency org="com.jgoodies" name="forms" rev="1.7.1" conf="binaries->default" />
      
     </dependencies>
 </ivy-module>
