@@ -44,7 +44,8 @@
 	
 	<!--   target: resolve              -->
 	<target name="resolve" description="--> retreive dependencies with ivy">
-		<ivy:retrieve />
+		<ivy:retrieve conf="client" pattern="${lib.dir}/[artifact].[ext]"/>
+		<ivy:retrieve conf="server" pattern="${server.lib.dir}/[artifact].[ext]"/>
 	</target>
 
 	<!--           target: report             -->
