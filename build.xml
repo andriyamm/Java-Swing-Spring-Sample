@@ -4,6 +4,14 @@
 	<!-- Sets variables which can later be used. -->
 	<!-- The value of a property is accessed via ${} -->
 	<property name="src.dir" location="src" />
+	<property name="pack.dir" location="${src.dir}/com/ss/test" />
+	
+	<property name="dao.src.dir" location="${pack.dir}/dao" />
+	<property name="service.src.dir" location="${pack.dir}/service" />
+	
+	<property name="domain.src.dir" location="${pack.dir}/domain" />
+	
+	<property name="gui.src.dir" location="${pack.dir}/gui" /> 
 	
 	<property name="build.dir" location="build" />
 	<property name="lib.dir" value="lib" />
@@ -16,6 +24,8 @@
 	<property name="warfilename" value="${ant.project.name}.war" />
 	<property name="warfile" value="${build.dir}/${warfilename}" />
 	
+	<property name="jarfilename" value="${ant.project.name}.jar" />
+	<property name="jarfile" value="${build.dir}/${jarfilename}" />
 
 	<property file="build.properties" />
 
@@ -28,7 +38,7 @@
 	
 	<path id="path.id">
 		<path refid="lib.path.id" />
-		<path location="${build.dir}" />
+		<path location="${classes.dir}" />
 	</path>
 
 	<path id="server.lib.path.id">
@@ -50,7 +60,7 @@
 
 	<!--           target: report             -->
 	<target name="report" depends="resolve" description="--> generates a report of dependencies">
-		<ivy:report todir="${build.dir}" />
+		<ivy:report todir="${classes.dir}" />
 	</target>
 
 	<!--  target: clean-cache            -->
@@ -61,7 +71,7 @@
 	<!-- Deletes the existing build, docs and dist directory-->
 	<target name="clean">
 		<echo message="Cleaning client project workspace" />
-		<delete dir="${build.dir}" />
+		<delete dir="${classes.dir}" />
 	</target>
 	
 	<target name="server.clean">
@@ -81,35 +91,62 @@
 		<mkdir dir="${classes.dir}" />
 		<mkdir dir="${server.classes.dir}" />
 	</target>
-
-	<!-- Compiles the java code (including the usage of library for JUnit -->
+	
+	<target name="compile-server" depends="init, resolve">
+		<echo message="Compiling server project sources" />		
+		<javac includeantruntime="false" srcdir="${domain.src.dir}" destdir="${server.classes.dir}">
+			<classpath refid="server.path.id" />
+		</javac>	
+		<javac includeantruntime="false" srcdir="${dao.src.dir}" destdir="${server.classes.dir}">
+			<classpath refid="server.path.id" />
+		</javac>	
+		<javac includeantruntime="false" srcdir="${service.src.dir}" destdir="${server.classes.dir}">
+			<classpath refid="server.path.id" />
+		</javac>
+	</target>
+	
 	<target name="compile-client" depends="init, resolve">
 		<echo message="Compiling client project sources" />
-		<javac srcdir="${src.dir}" destdir="${classes.dir}">
+		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${classes.dir}">
 			<classpath refid="path.id" />
 		</javac>
 	</target>
 	
-	<target name="compile-server" depends="init, resolve">
-		<echo message="Compiling server project sources" />
-		<javac srcdir="${src.dir}" destdir="${server.classes.dir}">
-			<classpath refid="server.path.id" />
-		</javac>
-	</target>
-
 	<target name="war" depends="compile-server">
+		<copy todir="${server.classes.dir}">
+			<fileset dir="${src.dir}">
+				<include name="*.properties"/>
+			</fileset>
+		</copy>
 		<war destfile="${warfile}" needxmlfile="false">
 			<classes dir="${server.classes.dir}" />
 			<fileset dir="${WebContent.dir}" />
-			<fileset dir="${jsp.dir}" />
-
-			<!-- Include images without jsp -->
-			<fileset dir="${resources}">
-				<exclude name="**/jsp/**" />
-			</fileset>
 		</war>
 	</target>
 
+	<manifestclasspath property="lib.list" jarfile="${jarfile}">
+		<classpath refid="lib.path.id"/>
+	</manifestclasspath>
+
+	<target name="jar" depends="compile-client">
+		<copy todir="${classes.dir}">
+			<fileset dir="${src.dir}">
+				<include name="*.xml"/>
+			</fileset>
+		</copy>
+		<copy todir="${classes.dir}/lib">
+			<fileset dir="${lib.dir}">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+        <jar jarfile="${jarfile}" destfile="${jarfile}" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="com.ss.test.Run"/>
+				<attribute name="Class-Path" value="${lib.list}"/>
+            </manifest>
+        </jar>
+	</target>
+	
 	<target name="deploy">
 		<echo message="Deployung war ${deploy}/${warfilename}" />
 		<copy file="${warfile}" todir="${deploy}" />
@@ -121,11 +158,11 @@
 	</target>
 
 	<!--  target: run client-->
-	<target name="run" depends="resolve" description="--> run the project">
-		<java classpathref="run.path.id" classname="com.ss.test.Run" />
+	<target name="run" depends="jar, deploy" description="--> run the project">
+		<java classpathref="path.id" classname="com.ss.test.Run" />
 	</target>
 
-	<target name="main" depends="compile-client, compile-server">
+	<target name="main" depends="jar, deploy">
 		<description>Main target</description>
 	</target>
 

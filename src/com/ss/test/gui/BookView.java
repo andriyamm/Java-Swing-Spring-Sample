@@ -14,6 +14,7 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+
 import com.ss.test.gui.models.BookTableModel;
 import com.ss.test.gui.models.ColumnComboModel;
 
@@ -63,17 +64,17 @@ public class BookView {
 		frame.getContentPane().add(textField, "2, 2, fill, default");
 		textField.setColumns(10);
 
-		final JComboBox comboBox = new JComboBox(columnComboModel);
-		frame.getContentPane().add(comboBox, "4, 2, fill, default");
+		final JComboBox filterComboBox = new JComboBox(columnComboModel);
+		frame.getContentPane().add(filterComboBox, "4, 2, fill, default");
 
-		JButton btnNewButton = new JButton("Find");
-		frame.getContentPane().add(btnNewButton, "6, 2");
+		JButton findButton = new JButton("Find");
+		frame.getContentPane().add(findButton, "6, 2");
 
-		btnNewButton.addActionListener(new ActionListener() {
+		findButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				bookTableModel.findBooks((String) comboBox.getSelectedItem(),
+				bookTableModel.findBooks((String) filterComboBox.getSelectedItem(),
 						textField.getText());
 				bookTableModel.fireTableDataChanged();
 			}
