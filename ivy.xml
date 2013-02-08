@@ -13,7 +13,7 @@
         <dependency org="commons-dbcp" name="commons-dbcp" rev="1.4" conf="server->default" transitive="false" />
         <dependency org="commons-pool" name="commons-pool" rev="1.6" conf="server->default" transitive="false" />
         <dependency org="org.apache.commons" name="commons-lang3" rev="3.1" conf="server->default;client->default" transitive="false" />
-        <dependency org="commons-logging" name="commons-logging" rev="1.1.1" conf="server->default" transitive="false" />
+        <dependency org="commons-logging" name="commons-logging" rev="1.1.1" conf="server->default;client->default" transitive="false" />
         <dependency org="net.sourceforge.jtds" name="jtds" rev="1.2.7" conf="server->default" transitive="false" />
         <dependency org="com.jgoodies" name="forms" rev="1.3.0" conf="client->default" transitive="false" />
         <dependency org="org.springframework"  name="spring" rev="1.2.7" conf="server->default;client->default" transitive="false" />

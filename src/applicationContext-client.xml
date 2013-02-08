@@ -23,7 +23,7 @@
 	<bean id="bookService"
             class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
             <property name="serviceUrl"
-                value="http://localhost:8090/miniature-octo-bear/bookService" />
+                value="http://localhost:8090/secret-octo-hipster/bookService" />
             <property name="serviceInterface"
                 value="com.ss.test.service.IBookManager" />
      </bean> 
