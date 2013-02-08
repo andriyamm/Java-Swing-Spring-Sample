@@ -3,7 +3,7 @@
 
 <beans>
 	
-	<bean id="bookView" class="com.ss.test.gui.BookView"  >
+	<bean id="bookListView" class="com.ss.test.gui.BookListView"  >
 		<constructor-arg>
 			<ref bean="columnComboModel"/>
 		</constructor-arg>

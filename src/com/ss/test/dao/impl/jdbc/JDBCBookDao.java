@@ -1,4 +1,4 @@
-package com.ss.test.dao.impl;
+package com.ss.test.dao.impl.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,34 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import com.ss.test.dao.IBookDao;
+import com.ss.test.dao.impl.JDBCDao;
 import com.ss.test.domain.Book;
 
-public class BookDao implements IBookDao {
-
-	DataSource dataSource;
-
-	public DataSource getDataSource() {
-		return dataSource;
-	}
-
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
-	}
-
-	public Connection createConnection() {
-		Connection con = null;
-		try {
-				con = dataSource.getConnection();
-				System.out.println("Connection Done successfully");
-		} catch (Exception e) {
-			System.out.println("Error Occured " + e.toString());
-		}
-		
-		return con;
-	}
+public class JDBCBookDao extends JDBCDao implements IBookDao {
 
 	@Override
 	public List<Book> findAll(){
@@ -61,12 +38,6 @@ public class BookDao implements IBookDao {
 			}
 			rs.close();
 			ps.close();
-			
-//			 for (Book book : books) {
-//			 System.out.println(book);
-//			 }
-//			
-//			 System.out.println("_____________________________");
 			
 			return books;
 			
@@ -107,13 +78,6 @@ public class BookDao implements IBookDao {
 			}
 			rs.close();
 			ps.close();
-			
-			
-//			 for (Book book : books) {
-//			 System.out.println(book);
-//			 }
-//			
-//			 System.out.println("_____________________________");
 			 
 			return books;
 			
@@ -130,5 +94,16 @@ public class BookDao implements IBookDao {
 		}
 	}
 
-	
-}//po class
+	@Override
+	public void save(Book book) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void remove(Book book) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

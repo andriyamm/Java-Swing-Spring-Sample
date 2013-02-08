@@ -18,7 +18,9 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.ss.test.gui.models.BookTableModel;
 import com.ss.test.gui.models.ColumnComboModel;
 
-public class BookView {
+
+
+public class BookListView {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -27,11 +29,11 @@ public class BookView {
 	private BookTableModel bookTableModel;
 	private ColumnComboModel columnComboModel;
 
-	public BookView() {
+	public BookListView() {
 		//initialize();
 	}
 
-	public BookView(ColumnComboModel columnComboModel,
+	public BookListView(ColumnComboModel columnComboModel,
 			BookTableModel bookTableModel) {
 		this.columnComboModel = columnComboModel;
 		this.bookTableModel = bookTableModel;

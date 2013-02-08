@@ -5,7 +5,7 @@ import java.awt.EventQueue;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.ss.test.gui.BookView;
+import com.ss.test.gui.BookListView;
 
 public class Launcher {
 
@@ -17,7 +17,7 @@ public class Launcher {
 					ApplicationContext context = new ClassPathXmlApplicationContext(
 							"applicationContext-client.xml");
 
-					BookView bookView = (BookView) context.getBean("bookView");
+					BookListView bookView = (BookListView) context.getBean("bookView");
 					bookView.show();
 
 				} catch (Exception e) {

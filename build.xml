@@ -8,9 +8,7 @@
 	
 	<property name="dao.src.dir" location="${pack.dir}/dao" />
 	<property name="service.src.dir" location="${pack.dir}/service" />
-	
 	<property name="domain.src.dir" location="${pack.dir}/domain" />
-	
 	<property name="gui.src.dir" location="${pack.dir}/gui" /> 
 	
 	<property name="build.dir" location="build" />
@@ -72,6 +70,7 @@
 	<target name="clean">
 		<echo message="Cleaning client project workspace" />
 		<delete dir="${classes.dir}" />
+		<delete dir="${build.dir}" />
 	</target>
 	
 	<target name="server.clean">
@@ -87,8 +86,8 @@
 	<!--  Make folder build and classes -->
 	<target name="init" depends="clean">
 		<mkdir dir="${build.dir}" />
-		<mkdir dir="${lib.dir}" />
 		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${lib.dir}" />
 		<mkdir dir="${server.classes.dir}" />
 	</target>
 	
